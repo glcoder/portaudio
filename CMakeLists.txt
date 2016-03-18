@@ -31,6 +31,10 @@ if(WIN32)
     mark_as_advanced(PA_USE_WDMKS_DEVICE_INFO PA_WDMKS_NO_KSGUID_LIB)
 endif(WIN32)
 
+if(NOT PA_USE_WASAPI)
+SET(PA_EXCLUDE_WASAPI_SYMBOLS ";")
+endif(NOT PA_USE_WASAPI)
+
 include_directories(include src/common)
 set(PA_INCLUDES
     include/portaudio.h
@@ -195,7 +199,7 @@ endif(PA_USE_WMME)
 
 set(PA_LIBRARIES ${PA_LIBRARIES} CACHE STRING "Dependencies of Portaudio")
 
-configure_file(pa_config.h.in ${PROJECT_BINARY_DIR}/pa_config.h)
+configure_file(pa_config.h.in ${PROJECT_BINARY_DIR}/pa_config.h @ONLY)
 
 include_directories(${PROJECT_BINARY_DIR})
 set(PA_INCLUDES ${PA_INCLUDES}
@@ -203,7 +207,11 @@ set(PA_INCLUDES ${PA_INCLUDES}
 )
 
 if(MSVC)
-add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    configure_file(portaudio.def.in ${PROJECT_BINARY_DIR}/portaudio.def @ONLY)
+    set(PA_SOURCES ${PA_SOURCES}
+        ${PROJECT_BINARY_DIR}/portaudio.def
+    )
 endif(MSVC)
 
 add_library(portaudio ${PA_INCLUDES} ${PA_SOURCES})
