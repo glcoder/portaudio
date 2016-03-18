@@ -63,13 +63,6 @@ set(PA_SOURCES
     src/common/pa_trace.c
 )
 
-#src/os/unix/pa_unix_hostapis.o
-#src/os/unix/pa_unix_util.o
-#src/hostapi/coreaudio/pa_mac_core.o
-#src/hostapi/coreaudio/pa_mac_core_utilities.o
-#src/hostapi/coreaudio/pa_mac_core_blocking.o
-#src/common/pa_ringbuffer.o
-
 if(UNIX)
     include_directories(src/os/unix)
     set(PA_INCLUDES ${PA_INCLUDES}
