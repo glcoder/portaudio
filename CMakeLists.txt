@@ -63,7 +63,14 @@ set(PA_SOURCES
     src/common/pa_trace.c
 )
 
-if(UNIX AND NOT APPLE)
+#src/os/unix/pa_unix_hostapis.o
+#src/os/unix/pa_unix_util.o
+#src/hostapi/coreaudio/pa_mac_core.o
+#src/hostapi/coreaudio/pa_mac_core_utilities.o
+#src/hostapi/coreaudio/pa_mac_core_blocking.o
+#src/common/pa_ringbuffer.o
+
+if(UNIX)
     include_directories(src/os/unix)
     set(PA_INCLUDES ${PA_INCLUDES}
         src/os/unix/pa_unix_util.h
@@ -72,7 +79,7 @@ if(UNIX AND NOT APPLE)
         src/os/unix/pa_unix_hostapis.c
         src/os/unix/pa_unix_util.c
     )
-endif(UNIX AND NOT APPLE)
+endif(UNIX)
 
 if(WIN32)
     include_directories(src/os/win)
@@ -117,7 +124,6 @@ if(PA_USE_COREAUDIO)
     set(PA_SOURCES ${PA_SOURCES}
         src/hostapi/coreaudio/pa_mac_core.c
         src/hostapi/coreaudio/pa_mac_core_blocking.c
-        src/hostapi/coreaudio/pa_mac_core_old.c
         src/hostapi/coreaudio/pa_mac_core_utilities.c
     )
 endif(PA_USE_COREAUDIO)
@@ -163,9 +169,6 @@ endif(PA_UNICODE_BUILD)
 set(PA_LIBRARIES)
 
 if(APPLE)
-    if(PA_USE_COREAUDIO)
-        list(APPEND PA_LIBRARIES CoreAudio)
-    endif(PA_USE_COREAUDIO)
     list(APPEND PA_LIBRARIES AudioToolbox AudioUnit Carbon)
 endif(APPLE)
 
@@ -173,14 +176,29 @@ if(UNIX AND NOT APPLE)
     list(APPEND PA_LIBRARIES m pthread)
 endif(UNIX AND NOT APPLE)
 
-if(WIN32)
-    if(PA_USE_WDMKS)
-        list(APPEND PA_LIBRARIES setupapi)
-    endif(PA_USE_WDMKS)
-    if(PA_USE_WMME)
-        list(APPEND PA_LIBRARIES winmm)
-    endif(PA_USE_WMME)
-endif(WIN32)
+if(PA_USE_ALSA)
+    list(APPEND PA_LIBRARIES asound)
+endif(PA_USE_ALSA)
+
+if(PA_USE_ASIHPI)
+    list(APPEND PA_LIBRARIES hpi)
+endif(PA_USE_ASIHPI)
+
+if(PA_USE_COREAUDIO)
+    list(APPEND PA_LIBRARIES CoreAudio)
+endif(PA_USE_COREAUDIO)
+
+if(PA_USE_OSS)
+    list(APPEND PA_LIBRARIES ossaudio)
+endif(PA_USE_OSS)
+
+if(PA_USE_WDMKS)
+    list(APPEND PA_LIBRARIES setupapi)
+endif(PA_USE_WDMKS)
+
+if(PA_USE_WMME)
+    list(APPEND PA_LIBRARIES winmm)
+endif(PA_USE_WMME)
 
 set(PA_LIBRARIES ${PA_LIBRARIES} CACHE STRING "Dependencies of Portaudio")
 
