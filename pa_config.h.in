@@ -1,0 +1,44 @@
+#ifndef PA_CONFIG_H
+#define PA_CONFIG_H
+
+/*
+ * $Id:
+ * PortAudio Portable Real-Time Audio Library
+ * CMake generated config
+ *
+ * Copyright (c) 1999-2000 Ross Bencina and Phil Burk
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files
+ * (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+ * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+#cmakedefine PA_ENABLE_DEBUG_OUTPUT
+#cmakedefine PA_USE_WDMKS_DEVICE_INFO
+#cmakedefine PA_WDMKS_NO_KSGUID_LIB
+#cmakedefine01 PA_USE_SKELETON
+#cmakedefine01 PA_USE_ALSA
+#cmakedefine01 PA_USE_ASIHPI
+#cmakedefine01 PA_USE_COREAUDIO
+#cmakedefine01 PA_USE_JACK
+#cmakedefine01 PA_USE_OSS
+#cmakedefine01 PA_USE_WASAPI
+#cmakedefine01 PA_USE_WDMKS
+#cmakedefine01 PA_USE_WMME
+
+#endif
